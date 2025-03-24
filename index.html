@@ -93,7 +93,7 @@
     <label for="fraseSuggerita">Scrivila qui sotto:</label>
     <textarea id="fraseSuggerita" name="frase" rows="4" required></textarea>
     <button type="submit">Invia suggerimento</button>
-    <p id="messaggioForm" style="display:none; color:green;">Frase inviata con successo!</p>
+    <p id="messaggioForm" style="display:none; color:green; margin-top:10px;">Frase inviata con successo!</p>
   </form>
 
   <script>
@@ -150,9 +150,11 @@
     document.getElementById("suggerimentoForm").addEventListener("submit", function(e) {
       e.preventDefault();
       const frase = document.getElementById("fraseSuggerita").value;
+      const userAgent = navigator.userAgent;
+
       fetch("https://script.google.com/macros/s/AKfycbz9H127s2s4VGYgAJJuGw8NQa6laQQRk2TD9XLcz83-D34TI8bB3VZITyGolBoj_YLbfw/exec", {
         method: "POST",
-        body: JSON.stringify({ frase: frase }),
+        body: JSON.stringify({ frase: frase, userAgent: userAgent }),
         headers: { "Content-Type": "application/json" }
       }).then(res => {
         if (res.ok) {
