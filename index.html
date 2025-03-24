@@ -10,13 +10,11 @@
       padding: 50px;
       background-color: #fefefe;
     }
-
     .frase {
       font-size: 1.5em;
       margin: 20px 0;
       min-height: 3em;
     }
-
     button {
       padding: 10px 20px;
       font-size: 1em;
@@ -25,7 +23,6 @@
       border-radius: 8px;
       border: none;
     }
-
     #cuore {
       font-size: 2em;
       background-color: transparent;
@@ -33,33 +30,27 @@
       border: none;
       transition: transform 0.2s ease, color 0.3s ease;
     }
-
     #cuore:hover {
       transform: scale(1.2);
       color: #ff4081;
     }
-
     #cuore.clicked {
       animation: likePop 0.4s ease forwards;
       color: #ff4081;
     }
-
     #cuore.votato {
       color: #ff4081;
     }
-
     @keyframes likePop {
       0% { transform: scale(1); }
       50% { transform: scale(1.5); color: #ff4081; }
       100% { transform: scale(1); color: #ff4081; }
     }
-
     #counter {
       font-size: 1.2em;
       margin-left: 10px;
       color: #444;
     }
-
     form {
       margin-top: 50px;
       max-width: 400px;
@@ -67,7 +58,6 @@
       margin-right: auto;
       text-align: left;
     }
-
     input, textarea {
       width: 100%;
       padding: 10px;
@@ -77,7 +67,6 @@
       border: 1px solid #ccc;
       font-size: 1em;
     }
-
     form button {
       width: 100%;
       background-color: #0073aa;
@@ -99,16 +88,12 @@
     <span id="counter">0 voti</span>
   </div>
 
-  <form action="https://formsubmit.co/la-tua-email@example.com" method="POST">
+  <form id="suggerimentoForm">
     <h2>Hai una frase da suggerire?</h2>
     <label for="fraseSuggerita">Scrivila qui sotto:</label>
     <textarea id="fraseSuggerita" name="frase" rows="4" required></textarea>
-
-    <input type="hidden" name="_subject" value="Nuova frase suggerita dal sito">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="grazie.html">
-
     <button type="submit">Invia suggerimento</button>
+    <p id="messaggioForm" style="display:none; color:green;">Frase inviata con successo!</p>
   </form>
 
   <script>
@@ -147,7 +132,6 @@
 
     function votaFrase() {
       if (!fraseAttuale) return;
-
       const cuore = document.getElementById("cuore");
       cuore.disabled = true;
       cuore.classList.add("clicked", "votato");
@@ -158,11 +142,25 @@
       const newCount = current + 1;
       localStorage.setItem(key, newCount);
       document.getElementById("counter").textContent = `${newCount} voti`;
-
       alert("Grazie per il ❤️!");
     }
 
     document.addEventListener("DOMContentLoaded", generaFrase);
+
+    document.getElementById("suggerimentoForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const frase = document.getElementById("fraseSuggerita").value;
+      fetch("https://script.google.com/macros/s/AKfycbz9H127s2s4VGYgAJJuGw8NQa6laQQRk2TD9XLcz83-D34TI8bB3VZITyGolBoj_YLbfw/exec", {
+        method: "POST",
+        body: JSON.stringify({ frase: frase }),
+        headers: { "Content-Type": "application/json" }
+      }).then(res => {
+        if (res.ok) {
+          document.getElementById("suggerimentoForm").reset();
+          document.getElementById("messaggioForm").style.display = "block";
+        }
+      }).catch(err => console.error("Errore invio suggerimento:", err));
+    });
   </script>
 
 </body>
