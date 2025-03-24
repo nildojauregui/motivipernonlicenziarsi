@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>C'è sempre un motivo per non licenziarsi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #fefefe;
+    }
+
+    .frase {
+      font-size: 1.5em;
+      margin: 20px 0;
+      min-height: 3em;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 5px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    #cuore {
+      font-size: 2em;
+      background-color: transparent;
+      color: white;
+      border: none;
+      transition: transform 0.2s ease, color 0.3s ease;
+    }
+
+    #cuore:hover {
+      transform: scale(1.2);
+      color: #ff4081;
+    }
+
+    #cuore.clicked {
+      animation: likePop 0.4s ease forwards;
+      color: #ff4081;
+    }
+
+    #cuore.votato {
+      color: #ff4081;
+    }
+
+    @keyframes likePop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.5); color: #ff4081; }
+      100% { transform: scale(1); color: #ff4081; }
+    }
+
+    #counter {
+      font-size: 1.2em;
+      margin-left: 10px;
+      color: #444;
+    }
+
+    form {
+      margin-top: 50px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    form button {
+      width: 100%;
+      background-color: #0073aa;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>C'è sempre un motivo per non licenziarsi</h1>
+
+  <div class="frase" id="frase">Caricamento frase...</div>
+
+  <button onclick="generaFrase()">Genera Frase</button>
+
+  <div id="voti" style="margin-top: 20px;">
+    <p>Ti piace questa frase?</p>
+    <button id="cuore" onclick="votaFrase()">❤️</button>
+    <span id="counter">0 voti</span>
+  </div>
+
+  <form action="https://formsubmit.co/la-tua-email@example.com" method="POST">
+    <h2>Hai una frase da suggerire?</h2>
+    <label for="fraseSuggerita">Scrivila qui sotto:</label>
+    <textarea id="fraseSuggerita" name="frase" rows="4" required></textarea>
+
+    <input type="hidden" name="_subject" value="Nuova frase suggerita dal sito">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="grazie.html">
+
+    <button type="submit">Invia suggerimento</button>
+  </form>
+
+  <script>
+    const frasi = [
+      "Non arrenderti mai, anche quando tutto sembra perduto.",
+      "Ogni giorno è una nuova opportunità.",
+      "Sorridi, che la vita ti sorride.",
+      "Il successo è la somma di piccoli sforzi ripetuti giorno dopo giorno.",
+      "Respira. Anche questo passerà.",
+      "Oggi può essere il primo passo verso qualcosa di grande."
+    ];
+
+    let fraseAttuale = "";
+
+    function generaFrase() {
+      const indice = Math.floor(Math.random() * frasi.length);
+      const frase = frasi[indice];
+      fraseAttuale = frase;
+      document.getElementById("frase").textContent = frase;
+
+      const cuore = document.getElementById("cuore");
+      cuore.classList.remove("clicked", "votato");
+
+      const voto = localStorage.getItem("voto_" + frase);
+      if (voto === "❤️") {
+        cuore.classList.add("votato");
+        cuore.disabled = true;
+      } else {
+        cuore.disabled = false;
+        cuore.style.color = "white";
+      }
+
+      const count = localStorage.getItem("count_" + frase) || 0;
+      document.getElementById("counter").textContent = `${count} voti`;
+    }
+
+    function votaFrase() {
+      if (!fraseAttuale) return;
+
+      const cuore = document.getElementById("cuore");
+      cuore.disabled = true;
+      cuore.classList.add("clicked", "votato");
+      localStorage.setItem("voto_" + fraseAttuale, "❤️");
+
+      const key = "count_" + fraseAttuale;
+      const current = parseInt(localStorage.getItem(key) || "0");
+      const newCount = current + 1;
+      localStorage.setItem(key, newCount);
+      document.getElementById("counter").textContent = `${newCount} voti`;
+
+      alert("Grazie per il ❤️!");
+    }
+
+    document.addEventListener("DOMContentLoaded", generaFrase);
+  </script>
+
+</body>
+</html>
