@@ -157,16 +157,17 @@
       e.preventDefault();
       const frase = document.getElementById("fraseSuggerita").value;
 
+      // Mostra subito il messaggio di successo e resetta il campo
+      document.getElementById("successo").style.display = "block";
+      document.getElementById("suggerimentoForm").reset();
+
+      // Esegue comunque la fetch in background
       fetch("https://formsubmit.co/ajax/nildojauregui@gmail.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ frase }),
         mode: "no-cors"
       });
-
-      // Mostra comunque il messaggio di successo
-      document.getElementById("successo").style.display = "block";
-      document.getElementById("suggerimentoForm").reset();
     });
 
     document.addEventListener("DOMContentLoaded", generaFrase);
