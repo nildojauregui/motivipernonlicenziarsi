@@ -72,6 +72,13 @@
       background-color: #0073aa;
       color: white;
     }
+    #successo {
+      text-align: center;
+      font-size: 1.1em;
+      margin-top: 20px;
+      color: green;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -88,7 +95,7 @@
     <span id="counter">0 voti</span>
   </div>
 
-  <form action="https://formsubmit.co/nildojauregui@gmail.com" method="POST" target="_self">
+  <form action="https://formsubmit.co/nildojauregui@gmail.com" method="POST" target="_self" onsubmit="mostraMessaggio()">
     <h2>Hai una frase da suggerire?</h2>
     <label for="frase">Scrivila qui sotto:</label>
     <textarea name="frase" rows="4" required></textarea>
@@ -96,9 +103,9 @@
     <input type="hidden" name="_subject" value="Nuova frase suggerita dal sito!">
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_next" value="https://nildojauregui.github.io/motivipernonlicenziarsi/grazie.html">
 
     <button type="submit">Invia suggerimento</button>
+    <div id="successo">✅ Frase inviata con successo!</div>
   </form>
 
   <script>
@@ -148,6 +155,12 @@
       localStorage.setItem(key, newCount);
       document.getElementById("counter").textContent = `${newCount} voti`;
       alert("Grazie per il ❤️!");
+    }
+
+    function mostraMessaggio() {
+      setTimeout(() => {
+        document.getElementById("successo").style.display = "block";
+      }, 1000);
     }
 
     document.addEventListener("DOMContentLoaded", generaFrase);
