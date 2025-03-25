@@ -162,10 +162,11 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ frase }),
         mode: "no-cors"
-      }).then(() => {
-        document.getElementById("successo").style.display = "block";
-        document.getElementById("suggerimentoForm").reset();
       });
+
+      // Mostra comunque il messaggio di successo
+      document.getElementById("successo").style.display = "block";
+      document.getElementById("suggerimentoForm").reset();
     });
 
     document.addEventListener("DOMContentLoaded", generaFrase);
