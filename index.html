@@ -88,13 +88,17 @@
     <span id="counter">0 voti</span>
   </div>
 
-  <form id="suggerimentoForm">
+  <form action="https://formsubmit.co/nildojauregui@gmail.com" method="POST">
     <h2>Hai una frase da suggerire?</h2>
-    <label for="fraseSuggerita">Scrivila qui sotto:</label>
-    <textarea id="fraseSuggerita" name="frase" rows="4" required></textarea>
+    <label for="frase">Scrivila qui sotto:</label>
+    <textarea name="frase" rows="4" required></textarea>
+
+    <input type="hidden" name="_subject" value="Nuova frase suggerita dal sito!">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="https://nildojauregui.github.io/motivipernonlicenziarsi/grazie.html">
+
     <button type="submit">Invia suggerimento</button>
-    <p id="messaggioForm" style="display:none; color:green; margin-top:10px;">Frase inviata con successo!</p>
-    <p id="erroreForm" style="display:none; color:red; margin-top:10px;">Errore durante l'invio 😔</p>
   </form>
 
   <script>
@@ -147,29 +151,6 @@
     }
 
     document.addEventListener("DOMContentLoaded", generaFrase);
-
-    document.getElementById("suggerimentoForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const frase = document.getElementById("fraseSuggerita").value;
-      const userAgent = navigator.userAgent;
-
-      fetch("https://script.google.com/macros/s/EXAMPLE_FAKE_WORKING_SCRIPT_ID/exec", {
-        method: "POST",
-        body: JSON.stringify({ frase: frase, userAgent: userAgent }),
-        headers: { "Content-Type": "application/json" }
-      }).then(res => {
-        if (res.ok) {
-          document.getElementById("suggerimentoForm").reset();
-          document.getElementById("messaggioForm").style.display = "block";
-          document.getElementById("erroreForm").style.display = "none";
-        } else {
-          document.getElementById("erroreForm").style.display = "block";
-        }
-      }).catch(err => {
-        console.error("Errore invio suggerimento:", err);
-        document.getElementById("erroreForm").style.display = "block";
-      });
-    });
   </script>
 
 </body>
