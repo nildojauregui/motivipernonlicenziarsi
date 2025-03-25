@@ -79,6 +79,13 @@
       color: green;
       display: none;
     }
+    #errore {
+      text-align: center;
+      font-size: 1.1em;
+      margin-top: 20px;
+      color: red;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -95,17 +102,14 @@
     <span id="counter">0 voti</span>
   </div>
 
-  <form action="https://formsubmit.co/nildojauregui@gmail.com" method="POST" target="_self" onsubmit="mostraMessaggio()">
+  <form id="suggerimentoForm">
     <h2>Hai una frase da suggerire?</h2>
-    <label for="frase">Scrivila qui sotto:</label>
-    <textarea name="frase" rows="4" required></textarea>
-
-    <input type="hidden" name="_subject" value="Nuova frase suggerita dal sito!">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_template" value="table">
+    <label for="fraseSuggerita">Scrivila qui sotto:</label>
+    <textarea name="frase" id="fraseSuggerita" rows="4" required></textarea>
 
     <button type="submit">Invia suggerimento</button>
     <div id="successo">✅ Frase inviata con successo!</div>
+    <div id="errore">❌ Errore nell'invio. Riprova più tardi.</div>
   </form>
 
   <script>
@@ -157,11 +161,26 @@
       alert("Grazie per il ❤️!");
     }
 
-    function mostraMessaggio() {
-      setTimeout(() => {
+    document.getElementById("suggerimentoForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const frase = document.getElementById("fraseSuggerita").value;
+
+      fetch("https://formsubmit.co/ajax/nildojauregui@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ frase })
+      })
+      .then(res => res.ok ? res.json() : Promise.reject(res))
+      .then(() => {
         document.getElementById("successo").style.display = "block";
-      }, 1000);
-    }
+        document.getElementById("errore").style.display = "none";
+        document.getElementById("suggerimentoForm").reset();
+      })
+      .catch(() => {
+        document.getElementById("successo").style.display = "none";
+        document.getElementById("errore").style.display = "block";
+      });
+    });
 
     document.addEventListener("DOMContentLoaded", generaFrase);
   </script>
