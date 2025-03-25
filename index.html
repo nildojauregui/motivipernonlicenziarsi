@@ -79,13 +79,6 @@
       color: green;
       display: none;
     }
-    #errore {
-      text-align: center;
-      font-size: 1.1em;
-      margin-top: 20px;
-      color: red;
-      display: none;
-    }
   </style>
 </head>
 <body>
@@ -109,7 +102,6 @@
 
     <button type="submit">Invia suggerimento</button>
     <div id="successo">✅ Frase inviata con successo!</div>
-    <div id="errore">❌ Errore nell'invio. Riprova più tardi.</div>
   </form>
 
   <script>
@@ -168,17 +160,11 @@
       fetch("https://formsubmit.co/ajax/nildojauregui@gmail.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ frase })
-      })
-      .then(res => res.ok ? res.json() : Promise.reject(res))
-      .then(() => {
+        body: JSON.stringify({ frase }),
+        mode: "no-cors"
+      }).then(() => {
         document.getElementById("successo").style.display = "block";
-        document.getElementById("errore").style.display = "none";
         document.getElementById("suggerimentoForm").reset();
-      })
-      .catch(() => {
-        document.getElementById("successo").style.display = "none";
-        document.getElementById("errore").style.display = "block";
       });
     });
 
