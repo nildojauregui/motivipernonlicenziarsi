@@ -3,26 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <title>C'è sempre un motivo per non licenziarsi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Quicksand', sans-serif;
       text-align: center;
-      padding: 50px;
-      background-color: #fefefe;
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      color: #333;
     }
+
+    h1 {
+      font-size: 2em;
+      color: #222;
+      margin-bottom: 40px;
+    }
+
     .frase {
-      font-size: 1.5em;
-      margin: 20px 0;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      font-size: 1.4em;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
       min-height: 3em;
     }
+
     button {
-      padding: 10px 20px;
+      padding: 12px 25px;
       font-size: 1em;
       cursor: pointer;
-      margin: 5px;
+      margin: 10px;
       border-radius: 8px;
       border: none;
+      background-color: #0073aa;
+      color: white;
+      transition: background-color 0.2s ease;
     }
+
+    button:hover {
+      background-color: #005b8c;
+    }
+
     #cuore {
       font-size: 2em;
       background-color: transparent;
@@ -30,34 +55,41 @@
       border: none;
       transition: transform 0.2s ease, color 0.3s ease;
     }
+
     #cuore:hover {
       transform: scale(1.2);
       color: #ff4081;
     }
-    #cuore.clicked {
-      animation: likePop 0.4s ease forwards;
-      color: #ff4081;
-    }
+
+    #cuore.clicked,
     #cuore.votato {
       color: #ff4081;
     }
+
     @keyframes likePop {
       0% { transform: scale(1); }
       50% { transform: scale(1.5); color: #ff4081; }
       100% { transform: scale(1); color: #ff4081; }
     }
+
     #counter {
-      font-size: 1.2em;
+      font-size: 1em;
       margin-left: 10px;
-      color: #444;
+      color: #555;
     }
+
     form {
       margin-top: 50px;
-      max-width: 400px;
+      max-width: 500px;
       margin-left: auto;
       margin-right: auto;
       text-align: left;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
+
     input, textarea {
       width: 100%;
       padding: 10px;
@@ -67,17 +99,26 @@
       border: 1px solid #ccc;
       font-size: 1em;
     }
+
     form button {
       width: 100%;
-      background-color: #0073aa;
-      color: white;
+      background-color: #28a745;
     }
+
+    form button:hover {
+      background-color: #218838;
+    }
+
     #successo {
       text-align: center;
-      font-size: 1.1em;
-      margin-top: 20px;
+      font-size: 1em;
+      margin-top: 15px;
       color: green;
       display: none;
+    }
+
+    #condivisione {
+      margin: 30px 0;
     }
   </style>
 </head>
@@ -87,29 +128,29 @@
 
   <div class="frase" id="frase">Caricamento frase...</div>
 
-  <button onclick="generaFrase()">Genera Frase</button>
+  <button onclick="generaFrase()">🎲 Nuova Frase</button>
 
-  <div id="voti" style="margin-top: 20px;">
-  <div id="condivisione" style="margin: 20px 0;">
-    <p>Condividi questa frase:</p>
-    <button onclick="condividiFrase()">📤 Condividi</button>
-  </div>
+  <div id="voti">
     <p>Ti piace questa frase?</p>
     <button id="cuore" onclick="votaFrase()">❤️</button>
     <span id="counter">0 voti</span>
+  </div>
+
+  <div id="condivisione">
+    <p>Condividi questa frase:</p>
+    <button onclick="condividiFrase()">📤 Condividi</button>
   </div>
 
   <form id="suggerimentoForm">
     <h2>Hai una frase da suggerire?</h2>
     <label for="fraseSuggerita">Scrivila qui sotto:</label>
     <textarea name="frase" id="fraseSuggerita" rows="4" required></textarea>
-
     <button type="submit">Invia suggerimento</button>
     <div id="successo">✅ Frase inviata con successo!</div>
   </form>
 
   <script>
-    const frasi = ['Ricordati, hai un mutuo trentennale!', 'Lo stipendio non compra la felicità, ma paga le bollette!', 'Mollare tutto e aprire un chiringuito ai Caraibi è un bel sogno… peccato che manchino i Caraibi, il chiringuito e i soldi.', 'Se te ne vai, chi spiegherà al nuovo assunto il nuovo progetto deprecato 2 anni fa?', 'Non lasciare il lavoro finché non hai un piano B… e no, vincere alla lotteria non conta!', 'Ogni giorno è una nuova opportunità… di aggiornare il curriculum.', 'Lavorare qui è difficile, ma trovare un nuovo lavoro lo è di più', 'Sei già sopravvissuto finora, un altro giorno non ti ucciderà… probabilmente.', 'Hai già sopportato riunioni che potevano essere email, sei un eroe', 'Cambiare lavoro richiede sforzo, lamentarsi è gratis', 'Ogni mese lo stipendio arriva, magari in ritardo, ma arriva', 'Dove vai? Hai la macchinetta del caffè che ti capisce', 'Se resisti ancora un po’, potresti vincere il premio “anzianità psicologica”', 'Hai già imparato a ignorare le notifiche, un talento da non sprecare', 'Andarsene ora sarebbe un torto al tuo meme preferito del gruppo aziendale', 'Sei troppo vicino alla pensione… mancano solo 28 anni', 'Chi ti sopporterebbe così bene come il tuo PC aziendale?', 'Lunedì arriva comunque, tanto vale arrivarci con la scrivania già pronta', 'Il badge lo hai, il coraggio di andartene ancora no', 'Il collega che russa in pausa pranzo ti mancherebbe', 'Lamentarsi fa parte del contratto, anche se in piccolo', 'Il tuo cassetto ha più snack del bar qui vicino', 'Le ferie non si accumulano da sole, qualcuno dovrà usarle', 'Il caos qui almeno è prevedibile', 'La fotocopiatrice ti riconosce, è quasi affetto', 'Ogni giorno una nuova sfida… ad alzarsi dal letto', 'Il tuo sarcasmo è patrimonio aziendale', 'L’aria condizionata è sempre troppo o troppo poco, ma è gratis', 'Dove lo ritrovi un parcheggio così comodo?', 'Le scuse per arrivare in ritardo sono un’arte', 'Ogni collega pazzo è un potenziale aneddoto da raccontare', 'Le videocall ti hanno allenato per il poker facciale', 'Lasciare il lavoro? E perdere la mensa aziendale?', 'Il microonde sa che sei tu anche senza badge', 'Sviluppi pazienza, resilienza e capacità di sopportazione', 'Hai imparato a fare tanto con poco, pure la dignità', 'Se resti abbastanza, diventi “quello storico”', 'La scrivania è tua, ci hai piantato le radici', 'Il capo a volte ti ignora… ed è bellissimo', 'La stampante funziona solo quando la usi tu', 'Sei sopravvissuto a tre cambi di direzione, sei leggenda', 'Il tuo livello di multitasking ha superato l’umano', 'Nessuno manda email passive-aggressive meglio di te', 'Hai fatto l’ennesimo corso obbligatorio… e vissuto per raccontarlo', 'Il tuo sarcasmo ha una fanbase silenziosa', 'Le battute da pausa caffè tengono in piedi l’intero dipartimento', 'Il caos ti rende creativo, o almeno lo speri', 'La tua sedia ha ormai la tua forma, lasciarla sarebbe crudele', 'Dove altro puoi procrastinare con così tanta efficienza?', 'Hai promesso di andartene… ma solo il lunedì mattina'];
+    const frasi = {frasi_50};
 
     let fraseAttuale = "";
 
@@ -117,7 +158,13 @@
       const indice = Math.floor(Math.random() * frasi.length);
       const frase = frasi[indice];
       fraseAttuale = frase;
-      document.getElementById("frase").textContent = frase;
+
+      const fraseDiv = document.getElementById("frase");
+      fraseDiv.style.opacity = 0;
+      setTimeout(() => {
+        fraseDiv.textContent = frase;
+        fraseDiv.style.opacity = 1;
+      }, 150);
 
       const cuore = document.getElementById("cuore");
       cuore.classList.remove("clicked", "votato");
@@ -150,10 +197,17 @@
       alert("Grazie per il ❤️!");
     }
 
+    function condividiFrase() {
+      const frase = encodeURIComponent(fraseAttuale);
+      const link = `${window.location.origin}${window.location.pathname}?frase=${frase}`;
+      navigator.clipboard.writeText(link).then(() => {
+        alert("🔗 Link copiato! Ora puoi incollarlo dove vuoi.");
+      });
+    }
+
     document.getElementById("suggerimentoForm").addEventListener("submit", function(e) {
       e.preventDefault();
       const frase = document.getElementById("fraseSuggerita").value;
-
       document.getElementById("successo").style.display = "block";
       document.getElementById("suggerimentoForm").reset();
 
@@ -165,7 +219,6 @@
       });
     });
 
-    
     const urlParams = new URLSearchParams(window.location.search);
     const fraseParam = urlParams.get('frase');
     if (fraseParam) {
@@ -174,15 +227,6 @@
     } else {
       generaFrase();
     }
-
-    function condividiFrase() {
-      const frase = encodeURIComponent(fraseAttuale);
-      const link = `${window.location.origin}${window.location.pathname}?frase=${frase}`;
-      navigator.clipboard.writeText(link).then(() => {
-        alert("🔗 Link copiato! Ora puoi incollarlo dove vuoi.");
-      });
-    }
-
   </script>
 
 </body>
