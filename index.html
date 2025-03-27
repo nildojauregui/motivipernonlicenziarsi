@@ -215,7 +215,6 @@
 </script>
 
 <script>
-  // Suggerimento via Apps Script
   document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("suggerimentoForm");
     if (form) {
@@ -224,7 +223,7 @@
         const frase = document.getElementById("fraseSuggerita").value.trim();
         if (!frase) return;
         try {
-          await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
+          const response = await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -234,19 +233,21 @@
               ip: ""
             })
           });
-          alert("Frase inviata! Grazie!");
+          const text = await response.text();
+          console.log("RISPOSTA SERVER:", text);
+          alert("Risposta server: " + text);
           form.reset();
         } catch (err) {
-          alert("Errore invio suggerimento");
+          console.error("Errore invio suggerimento", err);
+          alert("Errore invio suggerimento: " + err.message);
         }
       });
     }
   });
 
-  // Like via Apps Script
   async function inviaLike(frase) {
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -254,6 +255,8 @@
           frase: frase
         })
       });
+      const result = await res.text();
+      console.log("RISPOSTA LIKE:", result);
     } catch (err) {
       console.error("Errore invio like", err);
     }
