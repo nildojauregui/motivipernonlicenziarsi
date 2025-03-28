@@ -18,11 +18,12 @@
       margin-bottom: 10px;
     }
     .frase {
-      font-size: 1.5em;
-      margin: 20px 0;
-      min-height: 3em;
-      font-style: italic;
-    }
+  font-size: 1.9em;
+  margin: 25px 0;
+  font-weight: bold;
+  color: #222;
+  min-height: 3em;
+}
     #cuore {
       font-size: 2em;
       color: white;
@@ -76,7 +77,23 @@
       border: none;
       border-radius: 5px;
     }
-  </style>
+  
+.nuova-frase {
+  background-color: #007BFF;
+  color: white;
+}
+@media (max-width: 600px) {
+  .bottoni {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bottoni button {
+    margin: 5px 0 !important;
+  }
+}
+
+</style>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFTLFG1BD"></script>
@@ -90,11 +107,11 @@
 </head>
 <body>
 
-  <h1>C'è sempre un motivo per non licenziarsi</h1>
+  <h1 style="font-size: 1.4em; margin-bottom: 15px;">C'è sempre un motivo per non licenziarsi</h1>
   <div class="frase" id="frase">Caricamento frase...</div>
 
   <div class="bottoni">
-    <button onclick="generaFrase()">🎲 Nuova Frase</button>
+    <button class="nuova-frase" onclick="generaFrase()">🎲 Nuova Frase</button>
     <button onclick="condividiFrase()">🔗 Condividi</button>
   </div>
 
