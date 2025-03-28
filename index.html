@@ -68,7 +68,6 @@
       border: 1px solid #ccc;
     }
     form button {
-      cursor: pointer;
       width: 100%;
       background-color: #0073aa;
       color: white;
@@ -186,6 +185,39 @@
     }
 
     function votaFrase() {
+      if (!fraseAttuale) return;
+      const cuore = document.getElementById("cuore");
+      cuore.disabled = true;
+      cuore.classList.add("clicked");
+      cuore.classList.add("votato");
+
+      // Aggiorna contatore
+      const key = "count_" + fraseAttuale;
+      const current = parseInt(localStorage.getItem(key) || "0");
+      const newCount = current + 1;
+      localStorage.setItem("voto_" + fraseAttuale, "❤️");
+      localStorage.setItem(key, newCount);
+      document.getElementById("counter").textContent = `${newCount} voti`;
+
+      // Tracciamento GA4
+      gtag('event', 'like_frase', {
+        'event_category': 'interazione',
+        'event_label': fraseAttuale
+      });
+
+      // Invio al backend
+      fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          tipo: "like",
+          frase: fraseAttuale
+        })
+      });
+    }
       gtag('event', 'like_frase', {
         'event_category': 'interazione',
         'event_label': fraseAttuale
@@ -195,25 +227,20 @@
       cuore.disabled = true;
       cuore.classList.add("clicked", "votato");
       localStorage.setItem("voto_" + fraseAttuale, "❤️");
-  console.log("✔️ Like salvato localmente e inviato al backend");
       const key = "count_" + fraseAttuale;
       const current = parseInt(localStorage.getItem(key) || "0");
       const newCount = current + 1;
       localStorage.setItem(key, newCount);
       document.getElementById("counter").textContent = `${newCount} voti`;
-  localStorage.setItem("voto_" + fraseAttuale, "❤️");
-  console.log("✔️ Like salvato localmente e inviato al backend");
       inviaLike(fraseAttuale);
     }
 
     async function inviaLike(frase) {
       try {
         await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
-      mode: "no-cors",
-      keepalive: true,
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({ tipo: "like", frase: fraseAttuale })
+          body: new URLSearchParams({ tipo: "like", frase: frase })
         });
       } catch (err) {
         console.error("Errore invio like", err);
@@ -229,8 +256,6 @@
 
       try {
         await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
-      mode: "no-cors",
-      keepalive: true,
       mode: "no-cors",
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -250,7 +275,7 @@
         setTimeout(() => alert("✅ Suggerimento inviato! Grazie!"), 100);
       } catch (err) {
         console.error("Errore invio suggerimento", err);
-        
+        alert("❌ Errore invio suggerimento. Riprova più tardi.");
       }
     });
 
