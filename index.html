@@ -18,12 +18,11 @@
       margin-bottom: 10px;
     }
     .frase {
-  font-size: 1.9em;
-  margin: 25px 0;
-  font-weight: bold;
-  color: #222;
-  min-height: 3em;
-}
+      font-size: 1.5em;
+      margin: 20px 0;
+      min-height: 3em;
+      font-style: italic;
+    }
     #cuore {
       font-size: 2em;
       color: white;
@@ -77,23 +76,7 @@
       border: none;
       border-radius: 5px;
     }
-  
-.nuova-frase {
-  background-color: #007BFF;
-  color: white;
-}
-@media (max-width: 600px) {
-  .bottoni {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .bottoni button {
-    margin: 5px 0 !important;
-  }
-}
-
-</style>
+  </style>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFTLFG1BD"></script>
@@ -102,16 +85,27 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-MNFTLFG1BD');
+
+// GA4: tracking eventi personalizzati
+function trackEvent(nomeEvento, categoria, label) {
+  if (typeof gtag === 'function') {
+    gtag('event', nomeEvento, {
+      'event_category': categoria,
+      'event_label': label
+    });
+  }
+}
+
 </script>
 
 </head>
 <body>
 
-  <h1 style="font-size: 1.4em; margin-bottom: 15px;">C'è sempre un motivo per non licenziarsi</h1>
+  <h1>C'è sempre un motivo per non licenziarsi</h1>
   <div class="frase" id="frase">Caricamento frase...</div>
 
   <div class="bottoni">
-    <button class="nuova-frase" onclick="generaFrase()">🎲 Nuova Frase</button>
+    <button onclick="generaFrase()">🎲 Nuova Frase</button>
     <button onclick="condividiFrase()">🔗 Condividi</button>
   </div>
 
@@ -214,6 +208,7 @@
     let fraseAttuale = "";
 
     function generaFrase() {
+  trackEvent('nuova_frase', 'interazione', 'utente clicca nuova frase');
       const indice = Math.floor(Math.random() * frasi.length);
       const frase = frasi[indice];
       fraseAttuale = frase;
@@ -280,7 +275,8 @@
         });
         
         this.reset();
-        alert("✅ Suggerimento inviato! Grazie!");
+        trackEvent("suggerimento", "interazione", document.getElementById("fraseSuggerita").value);
+      alert("✅ Suggerimento inviato! Grazie!");
       } catch (err) {
         console.error("Errore invio suggerimento", err);
         alert("❌ Errore invio suggerimento. Riprova più tardi.");
@@ -288,6 +284,7 @@
     });
 
     function condividiFrase() {
+  trackEvent('condividi_frase', 'interazione', fraseAttuale);
       const testo = encodeURIComponent(fraseAttuale || "C'è sempre un motivo per non licenziarsi!");
       const url = window.location.href;
       navigator.share
