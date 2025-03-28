@@ -77,6 +77,52 @@
       border-radius: 5px;
     }
   </style>
+
+<!-- Cookie Consent by Osano -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      palette: {
+        popup: { background: "#000" },
+        button: { background: "#f1d600", text: "#000" }
+      },
+      theme: "classic",
+      position: "bottom-right",
+      content: {
+        message: "Questo sito utilizza cookie per migliorare l'esperienza.",
+        dismiss: "Accetta",
+        link: "Scopri di più",
+        href: "https://policies.google.com/privacy"
+      },
+      onInitialise: function(status) {
+        if (status === "allow") {
+          caricaAnalytics();
+        }
+      },
+      onStatusChange: function(status) {
+        if (status === "allow") {
+          caricaAnalytics();
+        }
+      }
+    });
+  });
+
+  function caricaAnalytics() {
+    var script = document.createElement("script");
+    script.setAttribute("async", "");
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-MNFTLFG1BD";
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', 'G-MNFTLFG1BD');
+  }
+</script>
+
 </head>
 <body>
 
@@ -119,6 +165,10 @@
       const frase = frasi[indice];
       fraseAttuale = frase;
       document.getElementById("frase").textContent = frase;
+      gtag('event', 'frase_generata', {
+        'event_category': 'interazione',
+        'event_label': frase
+      });
 
       const cuore = document.getElementById("cuore");
       cuore.classList.remove("clicked", "votato");
@@ -135,6 +185,10 @@
     }
 
     function votaFrase() {
+      gtag('event', 'like_frase', {
+        'event_category': 'interazione',
+        'event_label': fraseAttuale
+      });
       if (!fraseAttuale) return;
       const cuore = document.getElementById("cuore");
       cuore.disabled = true;
@@ -181,6 +235,10 @@
         });
         
         this.reset();
+        gtag('event', 'suggerimento_inviato', {
+          'event_category': 'interazione',
+          'event_label': frase
+        });
         alert("✅ Suggerimento inviato! Grazie!");
       } catch (err) {
         console.error("Errore invio suggerimento", err);
@@ -193,7 +251,11 @@
       const url = window.location.href;
       navigator.share
         ? navigator.share({ text: testo, url })
-        : window.open(`https://wa.me/?text=${testo} ${url}`, "_blank");
+        : gtag('event', 'frase_condivisa', {
+        'event_category': 'interazione',
+        'event_label': fraseAttuale
+      });
+      window.open(`https://wa.me/?text=${testo} ${url}`, "_blank");
     }
   </script>
 </body>
