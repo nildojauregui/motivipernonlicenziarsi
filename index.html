@@ -191,7 +191,6 @@
       cuore.classList.add("clicked");
       cuore.classList.add("votato");
 
-      // Aggiorna contatore
       const key = "count_" + fraseAttuale;
       const current = parseInt(localStorage.getItem(key) || "0");
       const newCount = current + 1;
@@ -199,13 +198,11 @@
       localStorage.setItem(key, newCount);
       document.getElementById("counter").textContent = `${newCount} voti`;
 
-      // Tracciamento GA4
       gtag('event', 'like_frase', {
         'event_category': 'interazione',
         'event_label': fraseAttuale
       });
 
-      // Invio al backend
       fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
         method: "POST",
         mode: "no-cors",
@@ -247,7 +244,9 @@
       }
     }
 
-    document.addEventListener("DOMContentLoaded", generaFrase);
+    window.onload = () => {
+  generaFrase();
+};
 
     document.getElementById("suggerimentoForm").addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -272,7 +271,7 @@
           'event_category': 'interazione',
           'event_label': frase
         });
-        setTimeout(() => alert("✅ Suggerimento inviato! Grazie!"), 100);
+        alert("✅ Suggerimento inviato! Grazie!");
       } catch (err) {
         console.error("Errore invio suggerimento", err);
         alert("❌ Errore invio suggerimento. Riprova più tardi.");
