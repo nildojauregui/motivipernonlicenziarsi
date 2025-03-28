@@ -200,12 +200,14 @@
       const newCount = current + 1;
       localStorage.setItem(key, newCount);
       document.getElementById("counter").textContent = `${newCount} voti`;
+  localStorage.setItem("voto_" + fraseAttuale, "❤️");
       inviaLike(fraseAttuale);
     }
 
     async function inviaLike(frase) {
       try {
         await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
+      keepalive: true,
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: new URLSearchParams({ tipo: "like", frase: frase })
@@ -224,6 +226,7 @@
 
       try {
         await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
+      keepalive: true,
       mode: "no-cors",
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
