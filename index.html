@@ -117,5 +117,223 @@ function trackEvent(nomeEvento, categoria, label) {
 <!-- Google AdSense -->
 <script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX"></script>
 </head>
+<body>
+<h1 style="font-size: 1.4em; margin-bottom: 15px;">C'è sempre un motivo per non licenziarsi</h1>
+<!-- Ad Banner -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-format="auto" data-ad-slot="1234567890" data-full-width-responsive="true" style="display:block; text-align:center; margin: 20px auto;"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="frase" id="frase">Caricamento frase...</div>
+<div class="bottoni">
+<button class="nuova-frase" onclick="generaFrase()">🎲 Nuova Frase</button>
+<button onclick="condividiFrase()">🔗 Condividi</button>
+</div>
+<div>
+<p>Ti piace questa frase?</p>
+<button id="cuore" onclick="votaFrase()">❤️</button>
+<div id="counter">0 voti</div>
+</div>
+<form id="suggerimentoForm">
+<h2>Hai una frase da suggerire?</h2>
+<label for="fraseSuggerita">Scrivila qui sotto:</label>
+<textarea id="fraseSuggerita" name="frase" required="" rows="4"></textarea>
+<button type="submit">Invia suggerimento</button>
+</form>
+<script>
+    const frasi = [
+    "Ricordati, hai un mutuo trentennale!",
+    "Lo stipendio non compra la felicità, ma paga le bollette!",
+    "Mollare tutto e aprire un chiringuito ai Caraibi è un bel sogno… peccato che manchino i Caraibi, il chiringuito e i soldi.",
+    "Se te ne vai, chi spiegherà al nuovo assunto il nuovo progetto deprecato 2 anni fa?",
+    "Non lasciare il lavoro finché non hai un piano B… e no, ‘vincere alla lotteria’ non conta!",
+    "Ogni giorno è una nuova opportunità… di aggiornare il curriculum.",
+    "Lavorare qui è difficile, ma trovare un nuovo lavoro lo è di più",
+    "Sei già sopravvissuto finora, un altro giorno non ti ucciderà… probabilmente.",
+	"Non mi licenzio perché ho sviluppato la sindrome di Stoccolma verso il mio stipendio.",
+	"Lascerei questo lavoro, ma poi chi mi pagherebbe per fissare lo schermo fingendo di essere impegnato?",
+	"Non mi licenzio perché adoro il brivido di vedere il mio conto in banca sopravvivere fino alla fine del mese.",
+	"Resto qui perché il mio capo mi motiva ogni giorno… a cercare un altro lavoro, ma senza troppa convinzione.",
+	"Non me ne vado perché mi sono affezionato alla stampante difettosa e al caffè che sa di disperazione.",
+	"Mi piacerebbe licenziarmi, ma poi dovrei spiegare ai miei genitori perché ho scelto la povertà come stile di vita.",
+	"Non lascio il mio lavoro perché amo le sorprese... tipo scoprire nuove tasse sulla busta paga ogni mese.",
+	"Potrei licenziarmi, ma dove trovo un altro posto dove passare otto ore al giorno a scrollare il telefono impunemente?",
+	"Anche oggi in meeting abbiamo deciso di non decidere nulla, e io, coerentemente, ho deciso di non licenziarmi.",
+	"Non mi licenzio perché ho paura che senza questo lavoro la mia unica fonte di adrenalina saranno le bollette scadute.",
+	"Resto qui perché il mio CV ha più buchi di un groviera e i recruiter lo usano come esempio nei corsi di resilienza.",
+	"Non mi licenzio perché sarebbe troppo faticoso aggiornare il mio profilo LinkedIn.",
+	"Ogni giorno penso di licenziarmi, poi ricordo che il supermercato non accetta sogni come metodo di pagamento.",
+	"Se mi licenziassi, dovrei rinunciare a questa bellissima routine fatta di stress, frustrazione e chiamate alle 19:00.",
+	"Non lascio il mio lavoro perché nessun altro mi pagherebbe per stare otto ore in videoconferenza senza dire una parola.",
+	"Mi piacerebbe dimettermi, ma chi altro mi fornirebbe caffè gratis e drammi aziendali da commentare con i colleghi?",
+	"Non mi licenzio perché l’abitudine è una brutta bestia… e pure le bollette lo sono.",
+	"Resto perché il mio capo mi motiva costantemente… a fantasticare su una fuga senza lasciare tracce.",
+	"Non posso lasciare, ho appena scoperto come funzionano i benefit aziendali e voglio sfruttarli fino all'ultimo centesimo.",
+	"Vorrei licenziarmi, ma chi mi farà sentire speciale rispondendo alle mie email dopo tre settimane?",
+	"Non mi dimetto perché ho una missione: scoprire se è umanamente possibile sopravvivere solo con lo stipendio base.",
+	"Se me ne vado, chi si lamenterà in pausa pranzo con i colleghi?",
+	"Non mi licenzio perché voglio vedere fino a che punto posso odiare un lunedì senza che il mio cuore esploda.",
+	"Potrei andarmene, ma mi sento responsabile per la pianta in ufficio. Senza di me, chi la annaffierà?",
+	"Non mollo, voglio vedere se il mio capo sa il mio nome prima di farmi fuori con un’email generica.",
+	"Se lascio il lavoro, chi continuerà a stampare documenti inutili solo per il gusto di farlo?",
+	"Non mi licenzio perché mi diverto troppo a contare i minuti che mancano alla fine della giornata.",
+	"Resto perché voglio vedere come finisce la telenovela aziendale tra il capo e la segretaria.",
+	"Non mi licenzio perché voglio vedere se prima della pensione riesco a ottenere almeno un aumento o un grazie.",
+	"Hai già sopportato riunioni che potevano essere email, sei un eroe",
+    "Cambiare lavoro richiede sforzo, lamentarsi è gratis",
+    "Ogni mese lo stipendio arriva, magari in ritardo, ma arriva",
+    "Dove vai? Hai la macchinetta del caffè che ti capisce",
+    "Se resisti ancora un po’, potresti vincere il premio “anzianità psicologica”",
+    "Hai già imparato a ignorare le notifiche, un talento da non sprecare",
+    "Andarsene ora sarebbe un torto al tuo meme preferito del gruppo aziendale",
+    "Sei troppo vicino alla pensione… mancano solo 28 anni",
+    "Chi ti sopporterebbe così bene come il tuo PC aziendale?",
+    "Lunedì arriva comunque, tanto vale arrivarci con la scrivania già pronta",
+    "Il badge lo hai, il coraggio di andartene ancora no",
+    "Il collega che russa in pausa pranzo ti mancherebbe",
+    "Lamentarsi fa parte del contratto, anche se in piccolo",
+    "Il tuo cassetto ha più snack del bar qui vicino",
+    "Le ferie non si accumulano da sole, qualcuno dovrà usarle",
+    "Il caos qui almeno è prevedibile",
+    "La fotocopiatrice ti riconosce, è quasi affetto",
+    "Ogni giorno una nuova sfida… ad alzarsi dal letto",
+    "Il tuo sarcasmo è patrimonio aziendale",
+    "L’aria condizionata è sempre troppo o troppo poco, ma è gratis",
+    "Dove lo ritrovi un parcheggio così comodo?",
+    "Le scuse per arrivare in ritardo sono un’arte",
+    "Ogni collega pazzo è un potenziale aneddoto da raccontare",
+    "Le videocall ti hanno allenato per il poker facciale",
+    "Lasciare il lavoro? E perdere la mensa aziendale?",
+    "Il microonde sa che sei tu anche senza badge",
+    "Sviluppi pazienza, resilienza e capacità di sopportazione",
+    "Hai imparato a fare tanto con poco, pure la dignità",
+    "Se resti abbastanza, diventi “quello storico”",
+    "La scrivania è tua, ci hai piantato le radici",
+    "Il capo a volte ti ignora… ed è bellissimo",
+    "La stampante funziona solo quando la usi tu",
+    "Sei sopravvissuto a tre cambi di direzione, sei leggenda",
+    "Il tuo livello di multitasking ha superato l’umano",
+    "Nessuno manda email passive-aggressive meglio di te",
+    "Hai fatto l’ennesimo corso obbligatorio… e vissuto per raccontarlo",
+    "Il tuo sarcasmo ha una fanbase silenziosa",
+    "Le battute da pausa caffè tengono in piedi l’intero dipartimento",
+    "Il caos ti rende creativo, o almeno lo speri",
+    "La tua sedia ha ormai la tua forma, lasciarla sarebbe crudele",
+    "Dove altro puoi procrastinare con così tanta efficienza?",
+    "Hai promesso di andartene… ma solo il lunedì mattina"
+ 
+    ];
+    let fraseAttuale = "";
 
+    function generaFrase() {
+  trackEvent('nuova_frase', 'interazione', 'utente clicca nuova frase');
+      const indice = Math.floor(Math.random() * frasi.length);
+      const frase = frasi[indice];
+      fraseAttuale = frase;
+      document.getElementById("frase").textContent = frase;
+
+      const cuore = document.getElementById("cuore");
+      cuore.classList.remove("clicked", "votato");
+      const voto = localStorage.getItem("voto_" + frase);
+      if (voto === "❤️") {
+        cuore.classList.add("votato");
+        cuore.disabled = true;
+      } else {
+        cuore.disabled = false;
+      }
+
+      const count = localStorage.getItem("count_" + frase) || 0;
+      document.getElementById("counter").textContent = `${count} voti`;
+    }
+
+    function votaFrase() {
+      if (!fraseAttuale) return;
+      const cuore = document.getElementById("cuore");
+      cuore.disabled = true;
+      cuore.classList.add("clicked", "votato");
+      localStorage.setItem("voto_" + fraseAttuale, "❤️");
+      const key = "count_" + fraseAttuale;
+      const current = parseInt(localStorage.getItem(key) || "0");
+      const newCount = current + 1;
+      localStorage.setItem(key, newCount);
+      document.getElementById("counter").textContent = `${newCount} voti`;
+      inviaLike(fraseAttuale);
+    }
+
+    async function inviaLike(frase) {
+      try {
+        await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ tipo: "like", frase: frase })
+        });
+      } catch (err) {
+        console.error("Errore invio like", err);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", generaFrase);
+
+    document.getElementById("suggerimentoForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const frase = document.getElementById("fraseSuggerita").value.trim();
+      if (!frase) return alert("Scrivi una frase!");
+
+      try {
+        await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
+      mode: "no-cors",
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            tipo: "suggerimento",
+            frase: frase,
+            userAgent: navigator.userAgent,
+            ip: ""
+          })
+        });
+        
+        this.reset();
+        trackEvent("suggerimento", "interazione", document.getElementById("fraseSuggerita").value);
+      alert("✅ Suggerimento inviato! Grazie!");
+      } catch (err) {
+        console.error("Errore invio suggerimento", err);
+        alert("❌ Errore invio suggerimento. Riprova più tardi.");
+      }
+    });
+
+    function condividiFrase() {
+  trackEvent('condividi_frase', 'interazione', fraseAttuale);
+      const testo = encodeURIComponent(fraseAttuale || "C'è sempre un motivo per non licenziarsi!");
+      const url = window.location.href;
+      navigator.share
+        ? navigator.share({ text: testo, url })
+        : window.open(`https://wa.me/?text=${testo} ${url}`, "_blank");
+    }
+  </script>
+<!-- Cookie banner semplice -->
+<div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #222; color: #fff; padding: 15px; text-align: center; z-index: 1000;">
+  Questo sito utilizza cookie tecnici e di terze parti (Google Analytics). <button onclick="acceptCookies()" style="margin-left: 10px;">Accetta</button>
+</div>
+<script>
+  function acceptCookies() {
+    localStorage.setItem("cookieAccepted", "yes");
+    document.getElementById("cookie-banner").style.display = "none";
+  }
+  window.onload = function() {
+    if (localStorage.getItem("cookieAccepted") === "yes") {
+      document.getElementById("cookie-banner").style.display = "none";
+    }
+  }
+</script>
+<!-- Buy Me a Coffee -->
+<div style="margin-top: 60px; text-align: center;">
+<a href="https://www.buymeacoffee.com/motivipernon" style="text-decoration: none;" target="_blank">
+<img alt="Buy Me a Coffee" height="50" src="https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-1.svg"/>
+<p style="font-size: 1em; margin-top: 8px;">Offrimi un caffè se oggi non ti sei licenziato ☕</p>
+</a>
+</div>
+<footer style="text-align: center; margin-top: 60px; font-size: 0.95em; color: #666;">
+<p><a href="supporta.html" style="color: #007BFF; text-decoration: none;">❤️ Supporta il progetto</a></p>
+</footer>
+</body>
 </html>
