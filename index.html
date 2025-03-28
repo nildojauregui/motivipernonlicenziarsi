@@ -135,14 +135,13 @@ function trackEvent(nomeEvento, categoria, label) {
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <div class="frase" id="frase">Caricamento frase...</div>
-<div class="bottoni">
-<button class="nuova-frase" onclick="generaFrase()">🎲 Nuova Frase</button>
-<button onclick="condividiFrase()">🔗 Condividi</button>
-</div>
-<div>
-<p>Ti piace questa frase?</p>
-<button id="cuore" onclick="votaFrase()">❤️</button>
-<div id="counter">0 voti</div>
+<div class="bottoni" style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
+  <button class="nuova-frase" onclick="generaFrase()">🎲 Nuova Frase</button>
+  <button onclick="condividiFrase()">🔗 Condividi</button>
+  <div style="display: flex; align-items: center; gap: 5px;">
+    <button id="cuore" onclick="votaFrase()">❤️</button>
+    <div id="counter">0 voti</div>
+  </div>
 </div>
 <form id="suggerimentoForm">
 <h2>Hai una frase da suggerire?</h2>
