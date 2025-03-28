@@ -195,22 +195,25 @@
       cuore.disabled = true;
       cuore.classList.add("clicked", "votato");
       localStorage.setItem("voto_" + fraseAttuale, "❤️");
+  console.log("✔️ Like salvato localmente e inviato al backend");
       const key = "count_" + fraseAttuale;
       const current = parseInt(localStorage.getItem(key) || "0");
       const newCount = current + 1;
       localStorage.setItem(key, newCount);
       document.getElementById("counter").textContent = `${newCount} voti`;
   localStorage.setItem("voto_" + fraseAttuale, "❤️");
+  console.log("✔️ Like salvato localmente e inviato al backend");
       inviaLike(fraseAttuale);
     }
 
     async function inviaLike(frase) {
       try {
         await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
+      mode: "no-cors",
       keepalive: true,
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({ tipo: "like", frase: frase })
+          body: new URLSearchParams({ tipo: "like", frase: fraseAttuale })
         });
       } catch (err) {
         console.error("Errore invio like", err);
@@ -226,6 +229,7 @@
 
       try {
         await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
+      mode: "no-cors",
       keepalive: true,
       mode: "no-cors",
           method: "POST",
@@ -243,7 +247,7 @@
           'event_category': 'interazione',
           'event_label': frase
         });
-        alert("✅ Suggerimento inviato! Grazie!");
+        setTimeout(() => alert("✅ Suggerimento inviato! Grazie!"), 100);
       } catch (err) {
         console.error("Errore invio suggerimento", err);
         
