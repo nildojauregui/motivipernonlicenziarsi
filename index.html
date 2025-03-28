@@ -185,36 +185,6 @@
     }
 
     function votaFrase() {
-      if (!fraseAttuale) return;
-      const cuore = document.getElementById("cuore");
-      cuore.disabled = true;
-      cuore.classList.add("clicked");
-      cuore.classList.add("votato");
-
-      const key = "count_" + fraseAttuale;
-      const current = parseInt(localStorage.getItem(key) || "0");
-      const newCount = current + 1;
-      localStorage.setItem("voto_" + fraseAttuale, "❤️");
-      localStorage.setItem(key, newCount);
-      document.getElementById("counter").textContent = `${newCount} voti`;
-
-      gtag('event', 'like_frase', {
-        'event_category': 'interazione',
-        'event_label': fraseAttuale
-      });
-
-      fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: new URLSearchParams({
-          tipo: "like",
-          frase: fraseAttuale
-        })
-      });
-    }
       gtag('event', 'like_frase', {
         'event_category': 'interazione',
         'event_label': fraseAttuale
@@ -244,9 +214,7 @@
       }
     }
 
-    window.onload = () => {
-  generaFrase();
-};
+    document.addEventListener("DOMContentLoaded", generaFrase);
 
     document.getElementById("suggerimentoForm").addEventListener("submit", async function (e) {
       e.preventDefault();
