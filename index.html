@@ -118,6 +118,16 @@ function trackEvent(nomeEvento, categoria, label) {
 <script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX"></script>
 </head>
 <body>
+
+<!-- Google AdSense - Sidebar top right -->
+<div style="position: fixed; top: 10px; right: 10px; width: 320px; height: 60px; z-index: 9999;">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:320px;height:60px"
+       data-ad-client="ca-pub-XXXXXXXXXXXX"
+       data-ad-slot="1234567890"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 <h1 style="font-size: 1.4em; margin-bottom: 15px;">C'è sempre un motivo per non licenziarsi</h1>
 <!-- Ad Banner -->
 <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-format="auto" data-ad-slot="1234567890" data-full-width-responsive="true" style="display:block; text-align:center; margin: 20px auto;"></ins>
@@ -140,6 +150,38 @@ function trackEvent(nomeEvento, categoria, label) {
 <textarea id="fraseSuggerita" name="frase" required="" rows="4"></textarea>
 <button type="submit">Invia suggerimento</button>
 </form>
+
+<div style="text-align: center; margin-top: 30px;">
+  <a href="https://www.buymeacoffee.com/nildojauregui" target="_blank" style="display: inline-block; margin-right: 20px;">
+    <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy Me a Coffee" style="height: 40px;"><br>
+  </a>
+  <a href="https://www.paypal.com/donate" target="_blank" style="display: inline-block;">
+    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" alt="PayPal" style="height: 40px;"><br>
+  </a>
+  <div style="margin-top: 8px;">
+    <span id="frase-donazione" style="color: blue; text-decoration: underline;"></span>
+  </div>
+</div>
+<script>
+  const frasiDonazioni = [
+    'Offrimi un caffè se oggi non ti sei licenziato.',
+    'Un piccolo gesto per una grande resistenza lavorativa.',
+    "Se oggi non hai urlato 'mi licenzio!', forse è merito nostro ☕",
+    "Un caffè per ogni volta che hai respirato profondamente e detto 'resisti'.",
+    'Sostenici, così potremo continuare a salvare tastiere dai licenziamenti impulsivi.',
+    'Offrimi un caffè se il tuo capo non ti ha ancora fatto impazzire.',
+    'Una tazzina per ogni e-mail passivo-aggressiva che hai ignorato.',
+    'Se abbiamo evitato un licenziamento d’impulso… ci meritiamo un caffè, no?',
+    'Sopravvivere al lunedì? Vale almeno un espresso.',
+    'Resisti ancora un giorno. Noi saremo qui con un altro caffè virtuale.'
+  ];
+  const frase = frasiDonazioni[Math.floor(Math.random() * frasiDonazioni.length)];
+  document.addEventListener("DOMContentLoaded", () => {
+    const span = document.getElementById("frase-donazione");
+    if (span) span.textContent = frase;
+  });
+</script>
+
 <script>
     const frasi = [
     "Ricordati, hai un mutuo trentennale!",
@@ -325,13 +367,6 @@ function trackEvent(nomeEvento, categoria, label) {
     }
   }
 </script>
-<!-- Buy Me a Coffee -->
-<div style="margin-top: 60px; text-align: center;">
-<a href="https://www.buymeacoffee.com/motivipernon" style="text-decoration: none;" target="_blank">
-<img alt="Buy Me a Coffee" height="50" src="https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-1.svg"/>
-<p style="font-size: 1em; margin-top: 8px;">Offrimi un caffè se oggi non ti sei licenziato ☕</p>
-</a>
-</div>
 <footer style="text-align: center; margin-top: 60px; font-size: 0.95em; color: #666;">
 <p><a href="supporta.html" style="color: #007BFF; text-decoration: none;">❤️ Supporta il progetto</a></p>
 </footer>
