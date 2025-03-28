@@ -1,64 +1,34 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta name="description" content="Scopri 50 frasi ironiche e motivazionali per affrontare il lavoro con un sorriso. Condividile, votale, suggeriscine di nuove. C'è sempre un motivo per non licenziarsi!">
-  <meta property="og:title" content="Motivipernonlicenziarsi - Frasi motivazionali e ironiche">
-  <meta property="og:description" content="50 frasi ironiche per sopravvivere al lavoro con un sorriso.">
-  <meta property="og:image" content="https://tuosito.it/preview.jpg">
-  <meta property="og:url" content="https://tuosito.it">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="favicon.ico">
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFTLFG1BD"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){{dataLayer.push(arguments);}}
-    gtag('js', new Date());
-    gtag('config', 'G-MNFTLFG1BD');
-  </script>
-
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>C'è sempre un motivo per non licenziarsi</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  <meta name="description" content="Frasi ironiche e motivazionali per non licenziarsi... ancora.">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
-      font-family: 'Quicksand', sans-serif;
+      font-family: Arial, sans-serif;
       text-align: center;
-      padding: 50px 20px;
-      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-      color: #333;
+      padding: 40px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
     }
     .frase {
-      background: #fff;
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      font-size: 1.4em;
-      max-width: 600px;
-      margin: 0 auto 20px;
-      opacity: 1;
-      transition: opacity 0.3s ease;
+      font-size: 1.5em;
+      margin: 20px 0;
       min-height: 3em;
-    }
-    button {
-      padding: 12px 25px;
-      font-size: 1em;
-      cursor: pointer;
-      margin: 10px;
-      border-radius: 8px;
-      border: none;
-      background-color: #0073aa;
-      color: white;
-      transition: background-color 0.2s ease;
-    }
-    button:hover {
-      background-color: #005b8c;
+      font-style: italic;
     }
     #cuore {
       font-size: 2em;
-      background-color: transparent;
       color: white;
+      background: transparent;
       border: none;
+      cursor: pointer;
       transition: transform 0.2s ease, color 0.3s ease;
     }
     #cuore:hover {
@@ -71,80 +41,77 @@
     }
     #counter {
       font-size: 1em;
-      color: #555;
+      margin-top: 5px;
+    }
+    .bottoni {
+      margin: 30px 0;
+    }
+    .bottoni button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    form {
+      max-width: 400px;
+      margin: 40px auto;
+      text-align: left;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    form button {
+      width: 100%;
+      background-color: #0073aa;
+      color: white;
+      font-size: 1em;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
+
   <h1>C'è sempre un motivo per non licenziarsi</h1>
   <div class="frase" id="frase">Caricamento frase...</div>
-  <button onclick="generaFrase()">🎲 Nuova Frase</button>
-  <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
-    <p>Ti piace questa frase?</p>
-    <div style="display: flex; flex-direction: row; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap;">
-      <div id="voti" style="display: flex; align-items: center; gap: 8px;">
-        <button id="cuore" onclick="votaFrase()">❤️</button>
-        <span id="counter">0 voti</span>
-      </div>
-      <div id="condivisione">
-        <button onclick="condividiFrase()">📤 Condividi</button>
-      </div>
-    </div>
+
+  <div class="bottoni">
+    <button onclick="generaFrase()">🎲 Nuova Frase</button>
+    <button onclick="condividiFrase()">🔗 Condividi</button>
   </div>
+
+  <div>
+    <p>Ti piace questa frase?</p>
+    <button id="cuore" onclick="votaFrase()">❤️</button>
+    <div id="counter">0 voti</div>
+  </div>
+
+  <form id="suggerimentoForm">
+    <h2>Hai una frase da suggerire?</h2>
+    <label for="fraseSuggerita">Scrivila qui sotto:</label>
+    <textarea id="fraseSuggerita" name="frase" rows="4" required></textarea>
+    <button type="submit">Invia suggerimento</button>
+  </form>
+
   <script>
     const frasi = [
-  "Ricordati, hai un mutuo trentennale!",
-  "Lo stipendio non compra la felicità, ma paga le bollette!",
-  "Mollare tutto e aprire un chiringuito ai Caraibi è un bel sogno… peccato che manchino i Caraibi, il chiringuito e i soldi.",
-  "Se te ne vai, chi spiegherà al nuovo assunto il nuovo progetto deprecato 2 anni fa?",
-  "Non lasciare il lavoro finché non hai un piano B… e no, vincere alla lotteria non conta!",
-  "Ogni giorno è una nuova opportunità… di aggiornare il curriculum.",
-  "Lavorare qui è difficile, ma trovare un nuovo lavoro lo è di più",
-  "Sei già sopravvissuto finora, un altro giorno non ti ucciderà… probabilmente.",
-  "Hai già sopportato riunioni che potevano essere email, sei un eroe",
-  "Cambiare lavoro richiede sforzo, lamentarsi è gratis",
-  "Ogni mese lo stipendio arriva, magari in ritardo, ma arriva",
-  "Dove vai? Hai la macchinetta del caffè che ti capisce",
-  "Se resisti ancora un po’, potresti vincere il premio “anzianità psicologica”",
-  "Hai già imparato a ignorare le notifiche, un talento da non sprecare",
-  "Andarsene ora sarebbe un torto al tuo meme preferito del gruppo aziendale",
-  "Sei troppo vicino alla pensione… mancano solo 28 anni",
-  "Chi ti sopporterebbe così bene come il tuo PC aziendale?",
-  "Lunedì arriva comunque, tanto vale arrivarci con la scrivania già pronta",
-  "Il badge lo hai, il coraggio di andartene ancora no",
-  "Il collega che russa in pausa pranzo ti mancherebbe",
-  "Lamentarsi fa parte del contratto, anche se in piccolo",
-  "Il tuo cassetto ha più snack del bar qui vicino",
-  "Le ferie non si accumulano da sole, qualcuno dovrà usarle",
-  "Il caos qui almeno è prevedibile",
-  "La fotocopiatrice ti riconosce, è quasi affetto",
-  "Ogni giorno una nuova sfida… ad alzarsi dal letto",
-  "Il tuo sarcasmo è patrimonio aziendale",
-  "L’aria condizionata è sempre troppo o troppo poco, ma è gratis",
-  "Dove lo ritrovi un parcheggio così comodo?",
-  "Le scuse per arrivare in ritardo sono un’arte",
-  "Ogni collega pazzo è un potenziale aneddoto da raccontare",
-  "Le videocall ti hanno allenato per il poker facciale",
-  "Lasciare il lavoro? E perdere la mensa aziendale?",
-  "Il microonde sa che sei tu anche senza badge",
-  "Sviluppi pazienza, resilienza e capacità di sopportazione",
-  "Hai imparato a fare tanto con poco, pure la dignità",
-  "Se resti abbastanza, diventi “quello storico”",
-  "La scrivania è tua, ci hai piantato le radici",
-  "Il capo a volte ti ignora… ed è bellissimo",
-  "La stampante funziona solo quando la usi tu",
-  "Sei sopravvissuto a tre cambi di direzione, sei leggenda",
-  "Il tuo livello di multitasking ha superato l’umano",
-  "Nessuno manda email passive-aggressive meglio di te",
-  "Hai fatto l’ennesimo corso obbligatorio… e vissuto per raccontarlo",
-  "Il tuo sarcasmo ha una fanbase silenziosa",
-  "Le battute da pausa caffè tengono in piedi l’intero dipartimento",
-  "Il caos ti rende creativo, o almeno lo speri",
-  "La tua sedia ha ormai la tua forma, lasciarla sarebbe crudele",
-  "Dove altro puoi procrastinare con così tanta efficienza?",
-  "Hai promesso di andartene… ma solo il lunedì mattina"
-];
-
+      "Ricordati, hai un mutuo trentennale!",
+      "Lo stipendio non compra la felicità, ma paga le bollette!",
+      "Mollare tutto e aprire un chiringuito ai Caraibi è un bel sogno… peccato che manchino i Caraibi, il chiringuito e i soldi.",
+      "Se te ne vai, chi spiegherà al nuovo assunto il nuovo progetto deprecato 2 anni fa?",
+      "Non lasciare il lavoro finché non hai un piano B… e no, ‘vincere alla lotteria’ non conta!",
+      "Ogni giorno è una nuova opportunità… di aggiornare il curriculum.",
+      "Lavorare qui è difficile, ma trovare un nuovo lavoro lo è di più",
+      "Sei già sopravvissuto finora, un altro giorno non ti ucciderà… probabilmente."
+    ];
     let fraseAttuale = "";
 
     function generaFrase() {
@@ -156,8 +123,13 @@
       const cuore = document.getElementById("cuore");
       cuore.classList.remove("clicked", "votato");
       const voto = localStorage.getItem("voto_" + frase);
-      cuore.disabled = voto === "❤️";
-      if (voto === "❤️") cuore.classList.add("votato");
+      if (voto === "❤️") {
+        cuore.classList.add("votato");
+        cuore.disabled = true;
+      } else {
+        cuore.disabled = false;
+      }
+
       const count = localStorage.getItem("count_" + frase) || 0;
       document.getElementById("counter").textContent = `${count} voti`;
     }
@@ -173,95 +145,56 @@
       const newCount = current + 1;
       localStorage.setItem(key, newCount);
       document.getElementById("counter").textContent = `${newCount} voti`;
+      inviaLike(fraseAttuale);
     }
+
+    async function inviaLike(frase) {
+      try {
+        await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tipo: "like", frase: frase })
+        });
+      } catch (err) {
+        console.error("Errore invio like", err);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", generaFrase);
+
+    document.getElementById("suggerimentoForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const frase = document.getElementById("fraseSuggerita").value.trim();
+      if (!frase) return alert("Scrivi una frase!");
+
+      try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            tipo: "suggerimento",
+            frase: frase,
+            userAgent: navigator.userAgent,
+            ip: ""
+          })
+        });
+        const text = await response.text();
+        console.log("RISPOSTA SERVER:", text);
+        this.reset();
+        alert("✅ Suggerimento inviato! Grazie!");
+      } catch (err) {
+        console.error("Errore invio suggerimento", err);
+        alert("❌ Errore invio suggerimento: " + err.message);
+      }
+    });
 
     function condividiFrase() {
-      const frase = encodeURIComponent(fraseAttuale);
-      const link = `${window.location.origin}{window.location.pathname}?frase=${frase}`;
-      navigator.clipboard.writeText(link).then(() => {
-        alert("🔗 Link copiato! Ora puoi incollarlo dove vuoi.");
-      });
-    }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const fraseParam = urlParams.get('frase');
-    if (fraseParam) {
-      fraseAttuale = decodeURIComponent(fraseParam);
-      document.getElementById("frase").textContent = fraseAttuale;
-    } else {
-      generaFrase();
+      const testo = encodeURIComponent(fraseAttuale || "C'è sempre un motivo per non licenziarsi!");
+      const url = window.location.href;
+      navigator.share
+        ? navigator.share({ text: testo, url })
+        : window.open(`https://wa.me/?text=${testo} ${url}`, "_blank");
     }
   </script>
-
-<form id="suggerimentoForm" style="margin: 60px auto; max-width: 500px; background: #fff; padding: 20px; border-radius: 10px;">
-  <h2 style="margin-top:0">Hai una frase da suggerire?</h2>
-  <label for="fraseSuggerita">Scrivila qui sotto:</label>
-  <textarea id="fraseSuggerita" name="frase" rows="4" required style="width:100%;padding:10px;margin-top:10px;border:1px solid #ccc;border-radius:5px;"></textarea>
-  <button type="submit" style="margin-top:10px;width:100%;padding:10px;background-color:#0073aa;color:white;border:none;border-radius:5px;">Invia suggerimento</button>
-</form>
-
-<div id="cookie-banner" style="position:fixed;bottom:0;width:100%;background:#eee;padding:15px;text-align:center;display:none;z-index:999;">
-  Questo sito usa cookie tecnici e, se accetti, anche di terze parti per mostrarti pubblicità personalizzate.
-  <button onclick="accettaCookie()">Accetta</button>
-</div>
-<script>
-  function accettaCookie() {
-    localStorage.setItem("cookie_accepted", "yes");
-    document.getElementById("cookie-banner").style.display = "none";
-  }
-  if (!localStorage.getItem("cookie_accepted")) {
-    document.getElementById("cookie-banner").style.display = "block";
-  }
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("suggerimentoForm");
-    if (form) {
-      form.addEventListener("submit", async function(e) {
-        e.preventDefault();
-        const frase = document.getElementById("fraseSuggerita").value.trim();
-        if (!frase) return;
-        try {
-          const response = await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              tipo: "suggerimento",
-              frase: frase,
-              userAgent: navigator.userAgent,
-              ip: ""
-            })
-          });
-          const text = await response.text();
-          console.log("RISPOSTA SERVER:", text);
-          alert("Risposta server: " + text);
-          form.reset();
-        } catch (err) {
-          console.error("Errore invio suggerimento", err);
-          alert("Errore invio suggerimento: " + err.message);
-        }
-      });
-    }
-  });
-
-  async function inviaLike(frase) {
-    try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbyF_f2zGlAGDXM-6512aYOKos8iFwTy6kFPy3OfxEwbaW7nj_kZccxgEh6avBkAkwTmQQ/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          tipo: "like",
-          frase: frase
-        })
-      });
-      const result = await res.text();
-      console.log("RISPOSTA LIKE:", result);
-    } catch (err) {
-      console.error("Errore invio like", err);
-    }
-  }
-</script>
-
 </body>
 </html>
