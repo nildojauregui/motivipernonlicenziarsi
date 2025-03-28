@@ -1,12 +1,13 @@
 
 <!DOCTYPE html>
+
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <title>C'è sempre un motivo per non licenziarsi</title>
-  <meta name="description" content="Frasi ironiche e motivazionali per non licenziarsi... ancora.">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
+<meta charset="utf-8"/>
+<title>C'è sempre un motivo per non licenziarsi</title>
+<meta content="Frasi ironiche e motivazionali per non licenziarsi... ancora." name="description"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
@@ -18,11 +19,12 @@
       margin-bottom: 10px;
     }
     .frase {
-      font-size: 1.5em;
-      margin: 20px 0;
-      min-height: 3em;
-      font-style: italic;
-    }
+  font-size: 1.9em;
+  margin: 25px 0;
+  font-weight: bold;
+  color: #222;
+  min-height: 3em;
+}
     #cuore {
       font-size: 2em;
       color: white;
@@ -76,10 +78,25 @@
       border: none;
       border-radius: 5px;
     }
-  </style>
+  
+.nuova-frase {
+  background-color: #007BFF;
+  color: white;
+}
+@media (max-width: 600px) {
+  .bottoni {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bottoni button {
+    margin: 5px 0 !important;
+  }
+}
 
+</style>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MNFTLFG1BD"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MNFTLFG1BD"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -97,32 +114,33 @@ function trackEvent(nomeEvento, categoria, label) {
 }
 
 </script>
-
+<!-- Google AdSense -->
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX"></script>
 </head>
 <body>
-
-  <h1>C'è sempre un motivo per non licenziarsi</h1>
-  <div class="frase" id="frase">Caricamento frase...</div>
-
-  <div class="bottoni">
-    <button onclick="generaFrase()">🎲 Nuova Frase</button>
-    <button onclick="condividiFrase()">🔗 Condividi</button>
-  </div>
-
-  <div>
-    <p>Ti piace questa frase?</p>
-    <button id="cuore" onclick="votaFrase()">❤️</button>
-    <div id="counter">0 voti</div>
-  </div>
-
-  <form id="suggerimentoForm">
-    <h2>Hai una frase da suggerire?</h2>
-    <label for="fraseSuggerita">Scrivila qui sotto:</label>
-    <textarea id="fraseSuggerita" name="frase" rows="4" required></textarea>
-    <button type="submit">Invia suggerimento</button>
-  </form>
-
-  <script>
+<h1 style="font-size: 1.4em; margin-bottom: 15px;">C'è sempre un motivo per non licenziarsi</h1>
+<!-- Ad Banner -->
+<ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-format="auto" data-ad-slot="1234567890" data-full-width-responsive="true" style="display:block; text-align:center; margin: 20px auto;"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="frase" id="frase">Caricamento frase...</div>
+<div class="bottoni">
+<button class="nuova-frase" onclick="generaFrase()">🎲 Nuova Frase</button>
+<button onclick="condividiFrase()">🔗 Condividi</button>
+</div>
+<div>
+<p>Ti piace questa frase?</p>
+<button id="cuore" onclick="votaFrase()">❤️</button>
+<div id="counter">0 voti</div>
+</div>
+<form id="suggerimentoForm">
+<h2>Hai una frase da suggerire?</h2>
+<label for="fraseSuggerita">Scrivila qui sotto:</label>
+<textarea id="fraseSuggerita" name="frase" required="" rows="4"></textarea>
+<button type="submit">Invia suggerimento</button>
+</form>
+<script>
     const frasi = [
     "Ricordati, hai un mutuo trentennale!",
     "Lo stipendio non compra la felicità, ma paga le bollette!",
@@ -292,7 +310,6 @@ function trackEvent(nomeEvento, categoria, label) {
         : window.open(`https://wa.me/?text=${testo} ${url}`, "_blank");
     }
   </script>
-
 <!-- Cookie banner semplice -->
 <div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #222; color: #fff; padding: 15px; text-align: center; z-index: 1000;">
   Questo sito utilizza cookie tecnici e di terze parti (Google Analytics). <button onclick="acceptCookies()" style="margin-left: 10px;">Accetta</button>
@@ -308,6 +325,15 @@ function trackEvent(nomeEvento, categoria, label) {
     }
   }
 </script>
-
+<!-- Buy Me a Coffee -->
+<div style="margin-top: 60px; text-align: center;">
+<a href="https://www.buymeacoffee.com/motivipernon" style="text-decoration: none;" target="_blank">
+<img alt="Buy Me a Coffee" height="50" src="https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-1.svg"/>
+<p style="font-size: 1em; margin-top: 8px;">Offrimi un caffè se oggi non ti sei licenziato ☕</p>
+</a>
+</div>
+<footer style="text-align: center; margin-top: 60px; font-size: 0.95em; color: #666;">
+<p><a href="supporta.html" style="color: #007BFF; text-decoration: none;">❤️ Supporta il progetto</a></p>
+</footer>
 </body>
 </html>
