@@ -357,20 +357,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         : window.open(`https://wa.me/?text=${testo} ${url}`, "_blank");
     }
   </script>
-<!-- Cookie banner semplice -->
-<div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #222; color: #fff; padding: 15px; text-align: center; z-index: 1000;">
-  Questo sito utilizza cookie tecnici e di terze parti (Google Analytics). <button onclick="acceptCookies()" style="margin-left: 10px;">Accetta</button>
+<!-- Banner Cookie con Accetta / Rifiuta -->
+<div id="cookie-banner" style="position: fixed; bottom: 0; width: 100%; background: #222; color: white; padding: 15px; text-align: center; font-size: 14px; z-index: 9999;">
+  Questo sito utilizza cookie di terze parti per finalità tecniche e pubblicitarie. <a href="https://motivipernonlicenziarsi.it/privacypolicy" style="color: #00bfff; text-decoration: underline;">Leggi la Privacy Policy</a>.
+  <button onclick="handleCookieChoice(true)" style="margin-left: 15px; background: #00bfff; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer;">Accetta</button>
+  <button onclick="handleCookieChoice(false)" style="margin-left: 10px; background: #555; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer;">Rifiuta</button>
 </div>
+
 <script>
-  function acceptCookies() {
-    localStorage.setItem("cookieAccepted", "yes");
-    document.getElementById("cookie-banner").style.display = "none";
-  }
-  window.onload = function() {
-    if (localStorage.getItem("cookieAccepted") === "yes") {
-      document.getElementById("cookie-banner").style.display = "none";
+  function handleCookieChoice(accepted) {
+    localStorage.setItem('cookiesChoice', accepted ? 'accepted' : 'rejected');
+    document.getElementById('cookie-banner').style.display = 'none';
+
+    // Esempio: disattiva o attiva servizi di tracciamento
+    if (!accepted) {
+      // Disattiva gli script di tracciamento qui, se ne hai
+      console.log("Cookie non essenziali disattivati");
     }
   }
+
+  window.onload = function () {
+    const choice = localStorage.getItem('cookiesChoice');
+    if (choice === 'accepted' || choice === 'rejected') {
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+  };
 </script>
 <footer style="text-align: center; margin-top: 60px; font-size: 0.95em; color: #666;">
 <p><a href="supporta.html" style="color: #007BFF; text-decoration: none;">❤️ Supporta il progetto</a></p>
